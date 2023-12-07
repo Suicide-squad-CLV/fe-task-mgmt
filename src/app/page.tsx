@@ -1,20 +1,9 @@
-"use client";
+import React from "react";
 
-export const dynamic = "force-dynamic";
+type Props = {};
 
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import gql from "graphql-tag";
+const HomePage = (props: Props) => {
+  return <div>HomePage</div>;
+};
 
-const query = gql`
-  query {
-    launchLatest {
-      mission_name
-    }
-  }
-`;
-
-export default function Home() {
-  const { data }: any = useSuspenseQuery(query);
-
-  return <div>{data.launchLatest.mission_name}</div>;
-}
+export default HomePage;
