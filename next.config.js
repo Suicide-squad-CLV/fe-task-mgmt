@@ -3,13 +3,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/task-management',
+        source: "/",
+        destination: "/task-management",
         permanent: false,
-
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
