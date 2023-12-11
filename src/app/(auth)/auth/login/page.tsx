@@ -3,7 +3,7 @@
 import LoginForm from "@/components/form/LoginForm";
 import { LOGIN_USER } from "@/graphql/mutations/login";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
-import React, { memo } from "react";
+import React from "react";
 
 type Props = {};
 
@@ -21,4 +21,4 @@ const LoginPage = (props: Props) => {
   return <LoginForm />;
 };
 
-export default memo(LoginPage);
+export default LoginPage;
