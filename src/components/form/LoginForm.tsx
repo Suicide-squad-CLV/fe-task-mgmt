@@ -14,24 +14,25 @@ const LoginForm = (props: Props) => {
     setIsShowPassword(!isShowPassword);
   };
 
-  const GET_ALL_FILMS = `
-  query {
-    allFilms {
-        edges {
-            node {
-                title
-                id
-            }
-        }
-    }
-  }`;
-  const options = {
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  };
+  // const GET_ALL_FILMS = `
+  // query {
+  //   allFilms {
+  //       edges {
+  //           node {
+  //               title
+  //               id
+  //           }
+  //       }
+  //   }
+  // }`;
+  // const options = {
+  //   staleTime: 1000 * 60 * 5, // 5 minutes
+  // };
 
-  const token = "your-bearer-token";
-  const { data } = useGQLQuery("query-key", GET_ALL_FILMS, {}, token);
-  console.log(data);
+  // const token = "your-bearer-token";
+  // const { data } = useGQLQuery("query-key", GET_ALL_FILMS, {}, token);
+  // console.log(data);
+
   return (
     <>
       <div className="mb-8">

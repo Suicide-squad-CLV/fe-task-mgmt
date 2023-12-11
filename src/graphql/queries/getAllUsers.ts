@@ -1,7 +1,7 @@
-import { graphql } from "@/gql";
+import { gql } from "graphql-tag";
 
-export const GET_ALL_USERS = graphql(`
-  query GetAllUsers {
+export const GET_ALL_USERS = gql`
+  query GetAllUsers() {
     getAllUsers {
       id
       fullname
@@ -9,4 +9,4 @@ export const GET_ALL_USERS = graphql(`
       avatar
     }
   }
-`);
+`;

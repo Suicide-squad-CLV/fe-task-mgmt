@@ -1,6 +1,6 @@
-import { graphql } from "@/gql";
+import gql from "graphql-tag";
 
-export const GET_PROFILE = graphql(`
+export const GET_PROFILE = gql`
   query GetProfile() {
     profile() {
       id
@@ -9,4 +9,4 @@ export const GET_PROFILE = graphql(`
       avatar
     }
   }
-`);
+`;

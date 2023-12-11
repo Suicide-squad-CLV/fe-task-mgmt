@@ -2,10 +2,9 @@
 
 import { CodegenConfig } from "@graphql-codegen/cli";
 
-console.log("BACKEND_API_URL", process.env.BACKEND_API_URL);
 const config: CodegenConfig = {
   schema: "http://localhost:5001/graphql",
-  documents: ["src/graphql/**/*.ts"],
+  documents: ["src/graphql/**/*.ts", "!src/gql/**/*"],
   ignoreNoDocuments: true,
   generates: {
     "./src/gql/": {

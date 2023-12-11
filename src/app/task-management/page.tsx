@@ -1,8 +1,7 @@
-import Header from "@/components/layout/Header";
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { useGQLQuery } from "@/utils/hooks/useGQLQuery";
 import {
   AdjustmentsHorizontalIcon,
   ArrowUturnLeftIcon,
