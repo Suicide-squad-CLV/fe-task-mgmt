@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { TanstackProvider } from "@/config/query-config/TanstackProvider";
 import { NextAuthProvider } from "@/config/next-auth/NextAuthProviders";
 import { ToastContainer } from "react-toastify";
@@ -18,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <ToastContainer />
-
         <TanstackProvider>
           <NextAuthProvider>{children}</NextAuthProvider>
         </TanstackProvider>

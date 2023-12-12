@@ -1,25 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { authOptions } from "@/config/next-auth/authOptions";
-import {
-  AdjustmentsHorizontalIcon,
-  ArrowUturnLeftIcon,
-  ArrowUturnRightIcon,
-  ListBulletIcon,
-  PlusSmallIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
+import { PlusSmallIcon } from "@heroicons/react/24/outline";
 import TaskContainer from "@/components/task-board/TaskContainer";
 import SideBar from "@/components/layout/SideBar";
 
 export default async function TaskManagementPage() {
-  const session: any = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/auth/login");
-  }
-
   return (
     <div className="ml-[261px] flex w-full border-l border-solid dark:bg-[#20212c] ">
       {/* Sidebar */}

@@ -1,5 +1,6 @@
 "use client";
 import SignUpForm from "@/components/form/SignUpForm";
+import { LOGIN_PAGE } from "@/config/route/page-routes";
 import Link from "next/link";
 import React from "react";
 
@@ -14,7 +15,7 @@ const SignUpPage = (props: Props) => {
         </span>
       </div>
       <SignUpForm />
-      <Link href="/auth/login" className="my-3 flex justify-center">
+      <Link href={LOGIN_PAGE} className="my-3 flex justify-center">
         <span className="text-sm font-medium">
           Already have an account? <span className="text-sm font-medium text-blue-600">Sign In</span>
         </span>
