@@ -7,7 +7,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 type Props = {};
 
-const SignUpForm = (props: Props) => {
+const NewPasswordForm = (props: Props) => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowRtPassword, setIsShowRtPassword] = useState<boolean>(false);
 
@@ -20,8 +20,6 @@ const SignUpForm = (props: Props) => {
   };
   return (
     <form className="flex flex-col gap-8">
-      <CustomInput inputId="fullname" label="Full Name" name="fullname" placeholder="Enter your name" type="text" />
-      <CustomInput inputId="email" label="Email" name="email" placeholder="Enter your email" type="email" />
       <CustomInput
         inputId="password"
         label="Password"
@@ -40,9 +38,9 @@ const SignUpForm = (props: Props) => {
         Icon={!isShowRtPassword ? EyeIcon : EyeSlashIcon}
         onIconClick={handleRtIconClick}
       />
-      <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700">Sign Up</Button>
+      <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700">Change Password</Button>
     </form>
   );
 };
 
-export default SignUpForm;
+export default NewPasswordForm;
