@@ -6,7 +6,21 @@ import React from "react";
 type Props = {};
 
 const SignUpPage = (props: Props) => {
-  return <SignUpForm />;
+  return (
+    <>
+      <div className="my-8">
+        <span className="text-2xl font-semibold">
+          Get started with <span className="text-3xl font-semibold text-blue-600">TaskBan</span>
+        </span>
+      </div>
+      <SignUpForm />
+      <Link href="/auth/login" className="my-3 flex justify-center">
+        <span className="text-sm font-medium">
+          Already have an account? <span className="text-sm font-medium text-blue-600">Sign In</span>
+        </span>
+      </Link>
+    </>
+  );
 };
 
 export default SignUpPage;
