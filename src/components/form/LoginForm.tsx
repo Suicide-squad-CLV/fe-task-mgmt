@@ -1,47 +1,92 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import { CustomInput } from "../form-control/CustomInput";
+import * as z from "zod";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { useGQLQuery } from "@/utils/hooks/useGQLQuery";
-
+import { signIn } from "next-auth/react";
+import { CustomInput } from "../form-field/custom/CustomInput";
+import { toast } from "react-toastify";
+import { redirect, useSearchParams } from "next/navigation";
+import { Form } from "../ui/form";
+import { useForm } from "react-hook-form";
+import { loginFormSchema } from "@/utils/validation/login-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ControlledInput from "../form-field/controlled/ControlledInput";
+import { RESET_PASSWORD_PAGE, TASK_MANAGEMENT_PAGE } from "@/config/route/page-routes";
 type Props = {};
 
 const LoginForm = (props: Props) => {
+  const searchParams = useSearchParams();
+
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
+
+  useEffect(() => {
+    const notify = searchParams.get("success");
+    if (notify == "true") {
+      const msg = searchParams.get("message");
+      toast(msg, { type: "success" });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      redirect(TASK_MANAGEMENT_PAGE);
+    }
+  }, [isLoginSuccess]);
+
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    shouldFocusError: true,
+  });
+
   const handleIconClick = () => {
     setIsShowPassword(!isShowPassword);
   };
 
-  const GET_ALL_FILMS = `
-  query {
-    allFilms {
-        edges {
-            node {
-                title
-                id
-            }
-        }
+  // const handleInputChange = (key: string, value: string) => {
+  //   setUserInfo((prev: any) => ({
+  //     ...prev,
+  //     [key]: value,
+  //   }));
+  // };
+
+  async function onSubmit(formValues: z.infer<typeof loginFormSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    const signInResults = await signIn("credentials", {
+      email: formValues.email,
+      password: formValues.password,
+      redirect: false,
+    });
+    if (signInResults?.error) {
+      setIsLoginSuccess(false);
+      toast.error("Username or Password is incorrect!");
+    } else {
+      setIsLoginSuccess(true);
     }
-  }`;
-  const options = {
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  };
+  }
 
-  const token = "your-bearer-token";
-  const { data } = useGQLQuery("query-key", GET_ALL_FILMS, {}, token);
-  console.log(data);
   return (
-    <>
-      <div className="mb-8">
-        <span className="text-3xl font-semibold">Welcome to</span>
-        <span className="text-4xl font-semibold text-blue-600">TaskBan</span>
-      </div>
-      <div className="flex flex-col gap-8">
-        <CustomInput id="email" label="Email" name="email" placeholder="Enter your email" type="email" />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+        <ControlledInput
+          control={form.control}
+          id="email"
+          label="Email"
+          name="email"
+          placeholder="Enter your email"
+          type="email"
+        />
 
-        <CustomInput
+        <ControlledInput
+          control={form.control}
           id="password"
           label="Password"
           name="password"
@@ -51,16 +96,14 @@ const LoginForm = (props: Props) => {
           onIconClick={handleIconClick}
         />
 
-        <Link href="/auth/reset-password" className="-my-3 ml-auto text-sm font-medium text-blue-600">
+        <Link href={RESET_PASSWORD_PAGE} className="-my-3 ml-auto text-sm font-medium text-blue-600">
           Forgot Password?
         </Link>
-        <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700">Sign In</Button>
-      </div>
-      <Link href="/auth/signup" className="my-3 flex justify-center gap-1">
-        <span className="text-sm font-medium">Not registered yet?</span>
-        <span className="text-sm font-medium text-blue-600">Create an account</span>
-      </Link>
-    </>
+        <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700" type="submit">
+          Sign In
+        </Button>
+      </form>
+    </Form>
   );
 };
 
