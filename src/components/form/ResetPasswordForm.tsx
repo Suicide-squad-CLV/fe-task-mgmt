@@ -1,59 +1,22 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
+import { CustomInput } from "../form-control/CustomInput";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { toast } from "react-toastify";
-import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
-import { FORGOT_PASSWORD } from "@/graphql/mutations/forgotPassword";
-import { useRouter } from "next/navigation";
-import { CustomInput } from "../form-field/custom/CustomInput";
 
-const ResetPasswordForm = () => {
-  const { push } = useRouter();
-  const [email, setEmail] = useState<string>("");
-  const { mutate } = useGQLMutation(FORGOT_PASSWORD);
+type Props = {};
 
-  // TODO: validate email before submit
-
-  const onForgotPassword = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!email) {
-      toast("Please enter your email", { type: "warning" });
-      return;
-    }
-
-    mutate(
-      { email },
-      {
-        onSuccess: (res: any) => {
-          push("/auth/login?success=true&message=" + res.forgotPassword.message);
-        },
-        onError: (res: any) => {
-          console.log("res", res);
-          const msg = res.forgotPassword.message;
-          toast(msg, { type: "error" });
-        },
-      },
-    );
-  };
-
+const ResetPasswordForm = (props: Props) => {
   return (
     <>
-      <form className="flex flex-col gap-8" onSubmit={(e) => onForgotPassword(e)}>
-        <CustomInput
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          id="email"
-          label="Email"
-          name="email"
-          placeholder="Enter your email"
-          type="email"
-        />
-        <Button type="submit" className="bg-blue-600 px-4 py-2 hover:bg-blue-700">
-          Reset Password
-        </Button>
-      </form>
+      <div className="my-8">
+        <span className="text-2xl font-semibold">Forgot Password?</span>{" "}
+        <p className="mt-4 text-sm">Enter your email for the verification process, we will send code to your email</p>
+      </div>
 
+      <div className="flex flex-col gap-8">
+        <CustomInput id="email" label="Email" name="email" placeholder="Enter your email" type="email" />
+        <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700">Reset Password</Button>
+      </div>
       <Link href="/auth/login" className="my-3 flex justify-center">
         <span className="text-sm font-medium text-blue-600">Back to Sign In</span>
       </Link>
