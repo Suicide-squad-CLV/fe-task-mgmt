@@ -1,5 +1,4 @@
 import NewPasswordForm from "@/components/form/NewPasswordForm";
-import ResetPasswordForm from "@/components/form/ResetPasswordForm";
 import React from "react";
 
 type Props = {};

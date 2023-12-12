@@ -1,16 +1,29 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import LoginForm from "@/components/form/LoginForm";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/config/next-auth/authOptions";
+import { redirect, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
-const LoginPage = async () => {
-  const session: any = await getServerSession(authOptions);
-  console.log(session);
-  if (session?.accessToken) {
+const LoginPage = () => {
+  const searchParams = useSearchParams();
+  const { data: session, status } = useSession();
+  console.log("session", session);
+
+  if (status === "authenticated") {
     redirect("/task-management");
   }
+
+  useEffect(() => {
+    const notify = searchParams.get("success");
+    if (notify == "true") {
+      const msg = searchParams.get("message");
+      toast(msg, { type: "success" });
+    }
+  }, []);
+
   return (
     <>
       <div className="mb-8">
