@@ -1,6 +1,15 @@
 import Image from "next/image";
 import "../globals.css";
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/config/next-auth/authOptions";
+import { redirect } from "next/navigation";
+import { TASK_MANAGEMENT_PAGE } from "@/config/route/page-routes";
+
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+  const session: any = await getServerSession(authOptions);
+  if (session) {
+    redirect(TASK_MANAGEMENT_PAGE);
+  }
   return (
     <div className="flex h-screen w-full">
       <div className="m-auto flex w-2/3 items-center justify-center gap-9 rounded-xl bg-white p-16 shadow-lg">
