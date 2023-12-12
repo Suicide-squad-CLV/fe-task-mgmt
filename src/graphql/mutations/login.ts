@@ -5,8 +5,9 @@ export const LOGIN_USER = gql`
     login(loginInput: { email: $email, password: $password }) {
       user {
         id
-        email
         fullname
+        email
+        avatar
       }
       token {
         expiration

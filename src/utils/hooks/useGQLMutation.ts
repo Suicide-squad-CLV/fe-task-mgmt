@@ -1,5 +1,4 @@
 import { QueryOptions, useMutation } from "@tanstack/react-query";
-import { GraphQLClient } from "graphql-request";
 import { mutationRequest } from "../common/mutationRequest";
 
 export const useGQLMutation = (query: any, variables: any = {}, options: QueryOptions = {}) => {
