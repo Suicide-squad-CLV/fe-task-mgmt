@@ -1,14 +1,11 @@
 import React from "react";
 import LoginForm from "@/components/form/LoginForm";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/config/next-auth/authOptions";
 
-type Props = {};
-
-const LoginPage = async (props: Props) => {
+const LoginPage = async () => {
   const session: any = await getServerSession(authOptions);
   console.log(session);
   if (session?.accessToken) {

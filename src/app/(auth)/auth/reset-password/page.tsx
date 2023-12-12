@@ -1,12 +1,7 @@
-import { CustomInput } from "@/components/form-control/CustomInput";
 import ResetPasswordForm from "@/components/form/ResetPasswordForm";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import React from "react";
 
-type Props = {};
-
-const ResetPasswordPage = (props: Props) => {
+const ResetPasswordPage = () => {
   return (
     <>
       <div className="my-8">

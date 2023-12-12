@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
           password: credentials?.password,
         });
         if (res) {
-          return res.login as any;
+          return res.login;
         }
       },
     }),
@@ -32,14 +32,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: ({ token, user }: any) => {
       if (user) {
-        token.email = user.user.email;
-        token.accessToken = user.token.token;
+        token.user = user.user;
+        token.tokens = user.token;
       }
       return token;
     },
     session: ({ session, token }: any) => {
-      session.email = token.email;
-      session.accessToken = token.accessToken;
+      session.user = token.user;
+      session.tokens = token.tokens;
 
       return session;
     },

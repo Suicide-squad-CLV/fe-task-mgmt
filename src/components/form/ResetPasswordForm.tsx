@@ -1,13 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { CustomInput } from "../form-control/CustomInput";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
-type Props = {};
-
-const ResetPasswordForm = (props: Props) => {
+const ResetPasswordForm = () => {
   return (
     <>
       <form className="flex flex-col gap-8">
