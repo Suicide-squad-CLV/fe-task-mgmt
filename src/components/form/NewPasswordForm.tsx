@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { CustomInput } from "../form-control/CustomInput";
 import { Button } from "../ui/button";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { UPDATE_PASSWORD } from "@/graphql/mutations/resetPassword";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
+import { CustomInput } from "../form-field/custom/CustomInput";
 
 const NewPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -44,7 +44,7 @@ const NewPasswordForm = () => {
       <CustomInput
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        inputId="password"
+        id="password"
         label="Password"
         name="password"
         placeholder="Enter your password"
@@ -55,7 +55,7 @@ const NewPasswordForm = () => {
       <CustomInput
         value={cfPassword}
         onChange={(e) => setCfPassword(e.target.value)}
-        inputId="confirm"
+        id="confirm"
         label="Confirm Password"
         name="confirm"
         placeholder="Confirm Password"

@@ -1,68 +1,109 @@
 "use client";
 
-import React, { useState } from "react";
-import { CustomInput } from "../form-control/CustomInput";
+import React, { useEffect, useState } from "react";
+import * as z from "zod";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { signIn } from "next-auth/react";
-
+import { CustomInput } from "../form-field/custom/CustomInput";
+import { toast } from "react-toastify";
+import { redirect, useSearchParams } from "next/navigation";
+import { Form } from "../ui/form";
+import { useForm } from "react-hook-form";
+import { loginFormSchema } from "@/utils/validation/login-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ControlledInput from "../form-field/controlled/ControlledInput";
+import { RESET_PASSWORD_PAGE, TASK_MANAGEMENT_PAGE } from "@/config/route/page-routes";
 type Props = {};
 
 const LoginForm = (props: Props) => {
+  const searchParams = useSearchParams();
+
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
+
+  useEffect(() => {
+    const notify = searchParams.get("success");
+    if (notify == "true") {
+      const msg = searchParams.get("message");
+      toast(msg, { type: "success" });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      redirect(TASK_MANAGEMENT_PAGE);
+    }
+  }, [isLoginSuccess]);
+
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    shouldFocusError: true,
+  });
 
   const handleIconClick = () => {
     setIsShowPassword(!isShowPassword);
   };
 
-  const handleInputChange = (key: string, value: string) => {
-    setUserInfo((prev: any) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
+  // const handleInputChange = (key: string, value: string) => {
+  //   setUserInfo((prev: any) => ({
+  //     ...prev,
+  //     [key]: value,
+  //   }));
+  // };
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-    const res = await signIn("credentials", {
-      redirect: true,
-      email: userInfo.email,
-      password: userInfo.password,
-      callbackUrl: "/task-management",
+  async function onSubmit(formValues: z.infer<typeof loginFormSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    const signInResults = await signIn("credentials", {
+      email: formValues.email,
+      password: formValues.password,
+      redirect: false,
     });
-  };
+    if (signInResults?.error) {
+      setIsLoginSuccess(false);
+      toast.error("Username or Password is incorrect!");
+    } else {
+      setIsLoginSuccess(true);
+    }
+  }
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={handleLogin}>
-      <CustomInput
-        inputId="email"
-        label="Email"
-        name="email"
-        placeholder="Enter your email"
-        type="email"
-        onChange={(e) => handleInputChange("email", e.target.value)}
-      />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+        <ControlledInput
+          control={form.control}
+          id="email"
+          label="Email"
+          name="email"
+          placeholder="Enter your email"
+          type="email"
+        />
 
-      <CustomInput
-        inputId="password"
-        label="Password"
-        name="password"
-        placeholder="Enter your password"
-        type={!isShowPassword ? "password" : "text"}
-        Icon={!isShowPassword ? EyeIcon : EyeSlashIcon}
-        onIconClick={handleIconClick}
-        onChange={(e) => handleInputChange("password", e.target.value)}
-      />
+        <ControlledInput
+          control={form.control}
+          id="password"
+          label="Password"
+          name="password"
+          placeholder="Enter your password"
+          type={!isShowPassword ? "password" : "text"}
+          Icon={!isShowPassword ? EyeIcon : EyeSlashIcon}
+          onIconClick={handleIconClick}
+        />
 
-      <Link href="/auth/reset-password" className="-my-3 ml-auto text-sm font-medium text-blue-600">
-        Forgot Password?
-      </Link>
-      <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700" type="submit">
-        Sign In
-      </Button>
-    </form>
+        <Link href={RESET_PASSWORD_PAGE} className="-my-3 ml-auto text-sm font-medium text-blue-600">
+          Forgot Password?
+        </Link>
+        <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700" type="submit">
+          Sign In
+        </Button>
+      </form>
+    </Form>
   );
 };
 

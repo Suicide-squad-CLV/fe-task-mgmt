@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { CustomInput } from "../form-control/CustomInput";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
 import { FORGOT_PASSWORD } from "@/graphql/mutations/forgotPassword";
 import { useRouter } from "next/navigation";
+import { CustomInput } from "../form-field/custom/CustomInput";
 
 const ResetPasswordForm = () => {
   const { push } = useRouter();
@@ -43,7 +43,7 @@ const ResetPasswordForm = () => {
         <CustomInput
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          inputId="email"
+          id="email"
           label="Email"
           name="email"
           placeholder="Enter your email"
