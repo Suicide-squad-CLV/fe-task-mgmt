@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 
-export const mutationRequest = (query: any, variables: any = {}) => {
+export const mutationRequest = async (query: any, variables: any = {}) => {
   const endpoint = process.env.BACKEND_API_URL ?? "http://localhost:5001/graphql";
 
   const graphQLClient = new GraphQLClient(endpoint, {
@@ -11,5 +11,5 @@ export const mutationRequest = (query: any, variables: any = {}) => {
     },
   });
 
-  return graphQLClient.request(query, variables);
+  return await graphQLClient.request(query, variables);
 };
