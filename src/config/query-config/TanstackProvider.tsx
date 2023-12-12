@@ -22,7 +22,7 @@ const client = new QueryClient({
   }),
 });
 
-function Provider({ children }: any) {
+function TanstackProvider({ children }: any) {
   return (
     <QueryClientProvider client={client}>
       <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
@@ -31,4 +31,4 @@ function Provider({ children }: any) {
   );
 }
 
-export { Provider };
+export { TanstackProvider };
