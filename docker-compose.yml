@@ -1,9 +1,0 @@
-version: "3.9"
-
-services:
-  task_maangement:
-    container_name: task-maangement
-    image: nextapp
-    build: .
-    ports:
-      - "3000:3000"

@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import "react-toastify/dist/ReactToastify.css";
-import { TanstackProvider } from "@/config/query-config/TanstackProvider";
-import { NextAuthProvider } from "@/config/next-auth/NextAuthProviders";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "@/config/query-config/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ToastContainer />
-        <TanstackProvider>
-          <NextAuthProvider>{children}</NextAuthProvider>
-        </TanstackProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
