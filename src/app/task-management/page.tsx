@@ -5,10 +5,10 @@ import SideBar from "@/components/layout/SideBar";
 
 export default async function TaskManagementPage() {
   return (
-    <div className="ml-[261px] flex w-full border-l border-solid dark:bg-[#20212c] ">
+    <div className="ml-[261px] flex w-full dark:bg-[#20212c] ">
       {/* Sidebar */}
-      <div className="fixed left-0 top-[69px] z-20 h-screen min-w-[261px] items-center  bg-white dark:bg-[#2b2c37]">
-        <div className="mx-auto my-16 h-full  w-[200px]">
+      <div className="fixed left-0 top-[65px] z-20 h-screen min-w-[261px] items-center border-r border-solid  bg-white dark:bg-[#2b2c37]">
+        <div className="mx-auto my-16 h-full w-[200px]">
           <SideBar />
         </div>
       </div>
