@@ -8,7 +8,7 @@ type Props = {};
 
 const SideBar = ({}: Props) => {
   return (
-    <div className="flex min-h-[750px] flex-col">
+    <div className="flex h-[calc(100vh-180px)] flex-col">
       <Button className="w-full bg-blue-600 px-4 py-2 hover:bg-blue-700">
         <ListBulletIcon className="mr-2 h-6 w-6" /> Tasks
       </Button>
