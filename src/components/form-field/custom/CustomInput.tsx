@@ -7,15 +7,16 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   label?: string;
   Icon?: React.ElementType;
   onIconClick?: MouseEventHandler<HTMLDivElement>;
+  classNameIcon?: string;
 }
 
 const CustomInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ id, Icon, label, onIconClick, ...props }, ref) => {
+  ({ id, Icon, label, onIconClick, classNameIcon, ...props }, ref) => {
     return (
       <div className="relative grid w-full max-w-sm items-center gap-1.5">
         {label && <Label htmlFor={id}>{label}</Label>}
         <Input id={id} {...props} ref={ref} />
-        <div onClick={onIconClick} className="absolute right-3 top-1/2">
+        <div onClick={onIconClick} className={`absolute right-3 top-1/2 ${classNameIcon}`}>
           {Icon && <Icon className="h-5 w-5" />}
         </div>
       </div>

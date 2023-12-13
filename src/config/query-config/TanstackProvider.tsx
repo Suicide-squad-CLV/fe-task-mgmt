@@ -12,7 +12,7 @@ const client = new QueryClient({
       staleTime: Infinity,
     },
     mutations: {
-      throwOnError: true,
+      // throwOnError: true,
     },
   },
   queryCache: new QueryCache({
