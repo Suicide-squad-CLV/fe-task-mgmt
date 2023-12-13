@@ -5,6 +5,8 @@ export const GET_ALL_STATUS = gql`
     statusList {
       id
       statusName
+      backgroundColor
+      textColor
     }
   }
 `;
