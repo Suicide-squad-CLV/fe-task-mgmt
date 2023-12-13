@@ -1,6 +1,13 @@
-export type StatusInfo = { __typename?: "GQLStatus"; id: string; statusName: string };
+export type StatusInfo = {
+  __typename?: "GQLStatus";
+  id: string;
+  statusName: string;
+  backgroundColor: string;
+  textColor: string;
+};
 export type TaskInfo = {
   __typename?: "GQLTask";
+  id: number;
   taskTitle: string;
   taskDescription?: string | null;
   status?: { __typename?: "GQLStatus"; id: string; statusName: string } | null;
