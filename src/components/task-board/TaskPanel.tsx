@@ -11,10 +11,10 @@ type Props = {
   status: StatusInfo;
 };
 
-const TaskPanel = (props: Props) => {
+const TaskPanel = ({ status }: Props) => {
   const [taskList, setTaskList] = useState<TaskInfo[]>([]);
-  const { data }: any = useGQLQuery([...QUERY_ALL_TASKS, props.status.id], GET_ALL_TASKS, {
-    statusId: props.status.id,
+  const { data }: any = useGQLQuery([...QUERY_ALL_TASKS, status.id], GET_ALL_TASKS, {
+    statusId: status.id,
   });
 
   useEffect(() => {
@@ -25,15 +25,15 @@ const TaskPanel = (props: Props) => {
   }, [data]);
 
   return (
-    <div className=" min-h-[720px] rounded-xl bg-[#eef2fc] p-3">
-      <div className="flex items-center text-[#14367B]">
+    <div className="min-h-[720px] rounded-xl p-3" style={{ backgroundColor: `${status.backgroundColor}` }}>
+      <div className="flex items-center" style={{ color: `${status.textColor}` }}>
         <Square2StackIcon className="mr-2 h-6 w-6" />
-        <span className="text-xl font-medium">{props.status.statusName}</span>
+        <span className="text-xl font-medium">{status.statusName}</span>
       </div>
       {/* task list */}
-      <div>
+      <div className="h-[680px] max-h-[680px] min-h-[680px] overflow-auto">
         {taskList.map((item) => (
-          <TaskItem key={item.taskTitle} task={item} />
+          <TaskItem key={item.id} task={item} />
         ))}
       </div>
     </div>
