@@ -5,14 +5,17 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import UploadAvatarPopup from "../popup/UploadAvatarPopup";
-type Props = {};
+import { useSession } from "next-auth/react";
 
-const Header = (props: Props) => {
+const Header = () => {
+  const imageUrl = "https://github.com/shadcn.png";
+  const { data } = useSession();
+
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const handleCloseDialog = () => {
     setShowPopup(false);
   };
-  const imageUrl = "https://github.com/shadcn.png";
+
   return (
     <>
       <div className="fixed left-0 right-0 z-50 bg-white">
@@ -33,9 +36,9 @@ const Header = (props: Props) => {
               <Input placeholder="Search" />
               <MagnifyingGlassIcon className="absolute bottom-0 right-3 top-0 my-auto h-6 w-6 text-gray-500" />
             </div>
-            <div className="group relative mr-10 h-11 w-11 rounded-full bg-gray-300">
-              <Avatar className="m-auto h-full w-full">
-                <AvatarImage src={imageUrl} />
+            <div className="group relative mr-10 h-11 w-11 cursor-pointer rounded-full bg-gray-300">
+              <Avatar className="m-auto h-full w-full" onClick={() => setShowPopup(true)}>
+                <AvatarImage src={data?.user?.avatar ?? imageUrl} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
               <div
@@ -50,7 +53,14 @@ const Header = (props: Props) => {
           </div>
         </header>
       </div>
-      <UploadAvatarPopup currentAvatar={imageUrl} isShow={showPopup} handleCloseDialog={handleCloseDialog} />
+
+      {showPopup && (
+        <UploadAvatarPopup
+          isShow={showPopup}
+          currentAvatar={data?.user?.avatar ?? ""}
+          handleCloseDialog={handleCloseDialog}
+        />
+      )}
     </>
   );
 };

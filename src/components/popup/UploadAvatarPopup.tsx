@@ -9,8 +9,6 @@ type Props = {
 };
 
 const UploadAvatarPopup = ({ isShow, handleCloseDialog, currentAvatar }: Props) => {
-  if (!isShow) return <></>;
-
   return (
     <Dialog open={isShow} onOpenChange={handleCloseDialog}>
       <DialogContent className="flex flex-col gap-10 sm:min-w-[425px]">
@@ -21,7 +19,7 @@ const UploadAvatarPopup = ({ isShow, handleCloseDialog, currentAvatar }: Props) 
             account
           </DialogDescription>
         </DialogHeader>
-        <UploadAvatarForm currentImageUrl={currentAvatar} />
+        <UploadAvatarForm currentImageUrl={currentAvatar} onClose={handleCloseDialog} />
       </DialogContent>
     </Dialog>
   );

@@ -30,10 +30,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: ({ token, user }: any) => {
+    jwt: ({ token, trigger, user, session }: any) => {
       if (user) {
         token.user = user.user;
         token.tokens = user.token;
+      }
+      if (trigger === "update" && session?.user) {
+        token.user = session.user;
       }
       return token;
     },

@@ -9,6 +9,14 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/graphql",
+        destination: "http://localhost:5001/graphql",
+      },
+    ];
+  },
   output: "standalone",
 };
 
