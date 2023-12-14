@@ -54,6 +54,7 @@ const UploadAvatarForm = ({ currentImageUrl, onClose }: Props) => {
 
     baseApi({
       data: uploadAvatarFormData(payload),
+      token: [data.tokens.type, data.tokens.token].join(" "),
       onSuccess: ({ data }) => {
         update({
           user: data.data.uploadAvatar,

@@ -1,28 +1,19 @@
+import { TaskInfo } from "@/components/task-board/GqlType";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-export interface GeneralState {
-  isLoginOpen: boolean;
-  isEditProfileOpen: boolean;
-}
-export interface GeneralActions {
-  setLoginIsOpen: (isLoginOpen: boolean) => void;
-  setIsEditProfileOpen: () => void;
+interface Tasks {
+  draggedTask: TaskInfo | null;
 }
 
-const useGeneralStore = create<GeneralState & GeneralActions>()(
+interface Actions {
+  setDraggedTask: (dragTask: TaskInfo | null) => void;
+}
+
+// persist store
+export const useGeneralStore = create<Tasks & Actions>()(
   devtools((set) => ({
-    isLoginOpen: false,
-    isEditProfileOpen: false,
-    setLoginIsOpen: (isLoginOpen: boolean) => {
-      set({ isLoginOpen });
-    },
-    setIsEditProfileOpen: () => {
-      return set((state) => ({
-        isEditProfileOpen: !state.isEditProfileOpen,
-      }));
-    },
+    draggedTask: null,
+    setDraggedTask: (dragTask) => set((_) => ({ draggedTask: dragTask })),
   })),
 );
-
-export default useGeneralStore;
