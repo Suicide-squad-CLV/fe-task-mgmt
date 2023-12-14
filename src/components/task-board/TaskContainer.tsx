@@ -18,6 +18,7 @@ const TaskContainer = (props: Props) => {
       setStatusPanels(statusList);
     }
   }, [data]);
+  
   return (
     <div className="grid grid-cols-4 gap-6">
       {statusPanels.map((status) => (

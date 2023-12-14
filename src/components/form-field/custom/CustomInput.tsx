@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { ChangeEventHandler, MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;

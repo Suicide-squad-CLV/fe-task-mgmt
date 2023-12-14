@@ -3,6 +3,7 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Card } from "../ui/card";
 import { TaskInfo } from "./GqlType";
 import { Avatar, AvatarImage } from "../ui/avatar";
+import { useGeneralStore } from "@/stores/useGeneralStore";
 
 type Props = {
   task: TaskInfo;
@@ -10,8 +11,10 @@ type Props = {
 
 const TaskItem = ({ task }: Props) => {
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
+  const setDraggedTask = useGeneralStore((store) => store.setDraggedTask);
+
   return (
-    <Card className="my-2 p-3">
+    <Card className="my-2 cursor-grab p-3" draggable onDragStart={() => setDraggedTask(task)}>
       <div className="flex flex-col gap-3 break-words">
         <p className="text-lg font-medium">{task.taskTitle}</p>
         <p className="w-full text-base">{task.taskDescription}</p>
