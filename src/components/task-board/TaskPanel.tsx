@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Square2StackIcon } from "@heroicons/react/24/outline";
 import TaskItem from "./TaskItem";
-import { GetAllTasksQuery, GqlTask } from "@/gql/graphql";
+import { GetAllTasksQuery } from "@/gql/graphql";
 import { useGQLQuery } from "@/utils/hooks/useGQLQuery";
 import { QUERY_ALL_TASKS } from "@/utils/common/constants";
 import { GET_ALL_TASKS } from "@/graphql/queries/getAllTasks";
@@ -19,11 +19,15 @@ type Props = {
 const TaskPanel = ({ status }: Props) => {
   const queryClient = useQueryClient();
   const [taskList, setTaskList] = useState<TaskInfo[]>([]);
+  const { draggedTask, setDraggedTask, taskKeywork } = useGeneralStore();
+
   const { data } = useGQLQuery([...QUERY_ALL_TASKS, status.id], GET_ALL_TASKS, {
     statusId: status.id,
+    title: taskKeywork,
+    userId: null,
   });
+
   const [drop, setDrop] = useState<boolean>(false);
-  const { draggedTask, setDraggedTask } = useGeneralStore();
   const { mutate } = useGQLMutation(UPDATE_TASK);
 
   useEffect(() => {
