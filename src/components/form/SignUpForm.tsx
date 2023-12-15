@@ -2,24 +2,23 @@
 import React, { useState } from "react";
 
 import { Button } from "../ui/button";
-import Link from "next/link";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
-import { CustomInput } from "../form-field/custom/CustomInput";
 import ControlledInput from "../form-field/controlled/ControlledInput";
 import { signupFormSchema } from "@/utils/validation/signup-form";
 import { REGISTER_USER } from "@/graphql/mutations/register";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { LOGIN_PAGE } from "@/config/route/page-routes";
 
 type Props = {};
 
 const SignUpForm = (props: Props) => {
+  const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowRtPassword, setIsShowRtPassword] = useState<boolean>(false);
   const register = useGQLMutation(REGISTER_USER);
@@ -54,7 +53,7 @@ const SignUpForm = (props: Props) => {
         } else {
           form.reset();
           toast.success("Register successful");
-          redirect(LOGIN_PAGE);
+          router.push(LOGIN_PAGE);
         }
       },
     });
