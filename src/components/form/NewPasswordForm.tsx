@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { toast } from "react-toastify";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { UPDATE_PASSWORD } from "@/graphql/mutations/resetPassword";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
@@ -15,6 +14,7 @@ import { LOGIN_PAGE } from "@/config/route/page-routes";
 import { Form } from "../ui/form";
 import ControlledInput from "../form-field/controlled/ControlledInput";
 import Link from "next/link";
+import { catchHandle } from "@/utils/common/catchHandle";
 
 const NewPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -52,8 +52,7 @@ const NewPasswordForm = () => {
       },
       onError: (err: any) => {
         console.log("error", err);
-        const msg = err.errors.message;
-        toast(msg, { type: "error" });
+        catchHandle(err);
       },
     });
   }
