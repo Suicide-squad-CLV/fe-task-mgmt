@@ -1,9 +1,9 @@
 "use client";
+
 import React from "react";
 import * as z from "zod";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { toast } from "react-toastify";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
 import { FORGOT_PASSWORD } from "@/graphql/mutations/forgotPassword";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ import ControlledInput from "../form-field/controlled/ControlledInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordSchema } from "@/utils/validation/reset-password-form";
 import { Form } from "../ui/form";
+import { catchHandle } from "@/utils/common/catchHandle";
 
 const ResetPasswordForm = () => {
   const { push } = useRouter();
@@ -32,10 +33,9 @@ const ResetPasswordForm = () => {
         onSuccess: (res: any) => {
           push("/auth/login?success=true&message=" + res.forgotPassword.message);
         },
-        onError: (res: any) => {
-          console.log("res", res);
-          const msg = res.forgotPassword.message;
-          toast(msg, { type: "error" });
+        onError: (err: any) => {
+          console.log("res", err);
+          catchHandle(err);
         },
       },
     );
