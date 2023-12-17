@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { ArrowUturnLeftIcon, ListBulletIcon } from "@heroicons/react/24/solid";
 import { signOut } from "next-auth/react";
+import ModifyTaskPopup from "../popup/ModifyTaskPopup";
 
 type Props = {};
 
