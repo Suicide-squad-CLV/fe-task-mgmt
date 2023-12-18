@@ -14,9 +14,9 @@ import { optionDataType } from "./ControlledSelect";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { useDebouncedValue } from "@/utils/hooks/useDebouncedValue";
-import { ComboboxDemo } from "../custom/combobox-demo";
 import { UserDataType } from "@/types/user.types";
 import { Label } from "@/components/ui/label";
+import { CustomCombobox } from "../custom/CustomCombobox";
 
 type ControlledCombobox = {
   control: Control<any>;
@@ -43,7 +43,7 @@ export function ControlledCombobox({ control, name, label, onSelect, editMode, e
       render={({ field }) => (
         <FormItem className="flex w-full flex-col">
           {label && <Label>{label}</Label>}
-          <ComboboxDemo editMode={editMode} editData={editData} handleValueChange={handleValueChange} />
+          <CustomCombobox editMode={editMode} editData={editData} handleValueChange={handleValueChange} />
           <FormMessage />
         </FormItem>
       )}
