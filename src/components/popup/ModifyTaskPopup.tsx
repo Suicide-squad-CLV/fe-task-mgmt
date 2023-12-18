@@ -12,7 +12,7 @@ type Props = {
 const ModifyTaskPopup = ({ isShow, handleCloseDialog, editMode = false, taskData }: Props) => {
   return (
     <Dialog open={isShow} onOpenChange={handleCloseDialog}>
-      <DialogContent className="flex flex-col gap-10 sm:min-w-[425px]">
+      <DialogContent className="flex flex-col gap-10 sm:min-w-[425px]" data-cy="modify-task-popup">
         <DialogHeader>
           <DialogTitle>{`${editMode ? "Update Task" : "Create New Task"}`}</DialogTitle>
         </DialogHeader>

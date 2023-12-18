@@ -19,7 +19,7 @@ type ControlledSelectProps = {
   label?: string;
 };
 
-export function ControlledSelect({ control, name, defaultValue, dataList, label }: ControlledSelectProps) {
+export function ControlledSelect({ control, name, defaultValue, dataList, label, ...props }: ControlledSelectProps) {
   const [selectValue, setSelectValue] = useState<any>(dataList[0]?.value);
 
   return (
@@ -27,7 +27,7 @@ export function ControlledSelect({ control, name, defaultValue, dataList, label 
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem {...props}>
           {label && <Label>{label}</Label>}
           <Select
             onValueChange={(value) => {
@@ -38,7 +38,7 @@ export function ControlledSelect({ control, name, defaultValue, dataList, label 
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={dataList[0]?.label} />
+                <SelectValue data-cy="select-value" placeholder={dataList[0]?.label} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

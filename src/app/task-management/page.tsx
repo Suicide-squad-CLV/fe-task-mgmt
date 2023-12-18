@@ -13,7 +13,7 @@ export default function TaskManagementPage() {
           <SideBar />
         </div>
       </div>
-      <div className="mx-16 mt-28 flex-1">
+      <div className="mx-16 mt-28 max-h-[calc(100%-10rem)] flex-1">
         {/* Functional */}
         <FunctionToolBar />
         {/* Task board */}

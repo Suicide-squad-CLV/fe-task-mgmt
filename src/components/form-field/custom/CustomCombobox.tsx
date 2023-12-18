@@ -12,15 +12,16 @@ import { optionDataType } from "../controlled/ControlledSelect";
 import { Search } from "./search";
 import { UserDataType } from "@/types/user.types";
 
-const POPOVER_WIDTH = "w-[250px]";
+const POPOVER_WIDTH = "w-full min-w-[300px]";
 
 type ComboboxType = {
   handleValueChange?: (user: UserDataType) => void;
   editMode?: boolean;
   editData?: any;
+  CustomOptionsItem?: React.ComponentType<any>;
 };
 
-export function CustomCombobox({ handleValueChange, editMode, editData }: ComboboxType) {
+export function CustomCombobox({ handleValueChange, editMode, editData, CustomOptionsItem, ...props }: ComboboxType) {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<UserDataType | undefined>();
 
@@ -40,12 +41,17 @@ export function CustomCombobox({ handleValueChange, editMode, editData }: Combob
     }
   }, [editData]);
 
-  const displayName = selected ? selected.fullname : "Select User";
+  const displayName = selected?.fullname ? selected.fullname : "Select User";
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" className={cn("justify-between", POPOVER_WIDTH)}>
+        <Button
+          variant="outline"
+          role="combobox"
+          className={cn("justify-between", POPOVER_WIDTH)}
+          data-cy="combo-input"
+        >
           {displayName}
 
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -53,7 +59,7 @@ export function CustomCombobox({ handleValueChange, editMode, editData }: Combob
       </PopoverTrigger>
 
       <PopoverContent side="bottom" className={cn("p-0", POPOVER_WIDTH)}>
-        <Search selectedResult={selected} onSelectResult={handleSetActive} />
+        <Search selectedResult={selected} onSelectResult={handleSetActive} CustomOptionsItem={CustomOptionsItem} />
       </PopoverContent>
     </Popover>
   );
