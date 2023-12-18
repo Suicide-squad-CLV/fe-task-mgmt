@@ -86,7 +86,7 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
         title: formValues.title,
         description: formValues.description,
         assignUserId: formValues.assignee ? Number(formValues.assignee) : null,
-        statusId: formValues.status,
+        statusId: formValues.status ? formValues.status: statusList[0]?.value,
       },
     };
 
