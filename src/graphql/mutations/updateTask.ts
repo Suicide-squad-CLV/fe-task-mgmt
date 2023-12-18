@@ -1,7 +1,7 @@
 import { gql } from "graphql-tag";
 
 export const UPDATE_TASK = gql`
-  mutation UpdateTask($updateTaskId: Int!, $updatedTaskData: UpdateTaskInput!) {
-    updateTask(id: $updateTaskId, updatedTaskData: $updatedTaskData)
+  mutation UpdateTask($updatedTaskData: UpdateTaskInput!, $updateTaskId: Int!) {
+    updateTask(updatedTaskData: $updatedTaskData, id: $updateTaskId)
   }
 `;

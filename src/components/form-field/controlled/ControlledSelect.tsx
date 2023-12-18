@@ -1,5 +1,7 @@
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
 import { Control } from "react-hook-form";
 
 export type optionDataType = {
@@ -18,17 +20,25 @@ type ControlledSelectProps = {
 };
 
 export function ControlledSelect({ control, name, defaultValue, dataList, label }: ControlledSelectProps) {
+  const [selectValue, setSelectValue] = useState<any>(dataList[0]?.value);
+
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
-          <Select onValueChange={field.onChange} defaultValue={defaultValue}>
+          {label && <Label>{label}</Label>}
+          <Select
+            onValueChange={(value) => {
+              setSelectValue(value);
+              field.onChange(value);
+            }}
+            value={selectValue || defaultValue}
+          >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={dataList[0]?.label} defaultValue={defaultValue} />
+                <SelectValue placeholder={dataList[0]?.label} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
