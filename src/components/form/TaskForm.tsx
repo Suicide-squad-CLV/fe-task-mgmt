@@ -50,10 +50,10 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
   const form = useForm<z.infer<typeof taskFormSchema>>({
     resolver: zodResolver(taskFormSchema),
     defaultValues: {
-      title: taskData?.taskTitle ? taskData?.taskTitle : "",
-      description: taskData?.taskDescription ? taskData?.taskDescription : "",
-      assignee: taskData?.assignUser ? taskData?.assignUser.id : "",
-      status: taskData?.status?.id ? taskData.status?.id : statusList[0]?.value,
+      title: "",
+      description: "",
+      assignee: "",
+      status: statusList[0]?.value,
     },
     shouldFocusError: true,
   });
@@ -121,7 +121,7 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
     }
   }
 
-  const CustomOptions = ({ avtUrl, fullname, email, key }: any) => {
+  const CustomOptions = useCallback(({ avtUrl, fullname, email, key }: any) => {
     return (
       <div className="flex items-center gap-3" key={key}>
         <Avatar className="m-auto h-6 w-6">
@@ -133,11 +133,11 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
         </span>
       </div>
     );
-  };
+  }, []);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8" data-cy="task-form">
         <ControlledInput
           control={form.control}
           id="title"
@@ -161,6 +161,7 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
           defaultValue={onEdit ? taskData?.status.id : statusList[0]?.value}
           label="Status"
           name="status"
+          data-cy="task-status"
         />
 
         <ControlledCombobox
@@ -169,11 +170,11 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
           label="Assignee"
           placeholder="Select Assignee"
           onSelect={(value) => {
-            console.log(value);
             form.setValue("assignee", value?.id);
           }}
           editMode={onEdit}
           editData={taskData?.assignUser}
+          CustomOptionsItem={CustomOptions}
         />
         <Button type="submit" className="bg-blue-600 px-4 py-2 hover:bg-blue-700">
           {onEdit ? "Update" : "Create"}

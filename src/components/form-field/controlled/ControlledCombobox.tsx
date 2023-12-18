@@ -32,7 +32,16 @@ type ControlledCombobox = {
   editData?: any;
 };
 
-export function ControlledCombobox({ control, name, label, onSelect, editMode, editData }: ControlledCombobox) {
+export function ControlledCombobox({
+  control,
+  name,
+  label,
+  onSelect,
+  editMode,
+  editData,
+  CustomOptionsItem,
+  ...props
+}: ControlledCombobox) {
   const handleValueChange = (value: UserDataType) => {
     onSelect(value);
   };
@@ -43,7 +52,13 @@ export function ControlledCombobox({ control, name, label, onSelect, editMode, e
       render={({ field }) => (
         <FormItem className="flex w-full flex-col">
           {label && <Label>{label}</Label>}
-          <CustomCombobox editMode={editMode} editData={editData} handleValueChange={handleValueChange} />
+          <CustomCombobox
+            editMode={editMode}
+            editData={editData}
+            handleValueChange={handleValueChange}
+            CustomOptionsItem={CustomOptionsItem}
+            {...props}
+          />
           <FormMessage />
         </FormItem>
       )}
