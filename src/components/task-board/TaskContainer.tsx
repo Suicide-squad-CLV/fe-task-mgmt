@@ -6,6 +6,7 @@ import { useGQLQuery } from "@/utils/hooks/useGQLQuery";
 import { QUERY_ALL_STATUS } from "@/utils/common/constants";
 import { GET_ALL_STATUS } from "@/graphql/queries/getAllStatus";
 import { GetAllStatusQuery } from "@/gql/graphql";
+import ModifyTaskPopup from "../popup/ModifyTaskPopup";
 
 type Props = {};
 
@@ -20,11 +21,14 @@ const TaskContainer = (props: Props) => {
   }, [data]);
   
   return (
-    <div className="grid grid-cols-4 gap-6">
-      {statusPanels.map((status) => (
-        <TaskPanel key={status.id} status={status} />
-      ))}
-    </div>
+    <>
+      {" "}
+      <div className="grid grid-cols-4 gap-6">
+        {statusPanels.map((status) => (
+          <TaskPanel key={status.id} status={status} />
+        ))}
+      </div>
+    </>
   );
 };
 
