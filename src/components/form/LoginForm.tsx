@@ -8,7 +8,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { signIn } from "next-auth/react";
 import { CustomInput } from "../form-field/custom/CustomInput";
 import { toast } from "react-toastify";
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { loginFormSchema } from "@/utils/validation/login-form";
@@ -19,7 +19,7 @@ type Props = {};
 
 const LoginForm = (props: Props) => {
   const searchParams = useSearchParams();
-
+  const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
 
@@ -33,7 +33,7 @@ const LoginForm = (props: Props) => {
 
   useEffect(() => {
     if (isLoginSuccess) {
-      redirect(TASK_MANAGEMENT_PAGE);
+      router.push(TASK_MANAGEMENT_PAGE);
     }
   }, [isLoginSuccess]);
 
@@ -49,13 +49,6 @@ const LoginForm = (props: Props) => {
   const handleIconClick = () => {
     setIsShowPassword(!isShowPassword);
   };
-
-  // const handleInputChange = (key: string, value: string) => {
-  //   setUserInfo((prev: any) => ({
-  //     ...prev,
-  //     [key]: value,
-  //   }));
-  // };
 
   async function onSubmit(formValues: z.infer<typeof loginFormSchema>) {
     // Do something with the form values.

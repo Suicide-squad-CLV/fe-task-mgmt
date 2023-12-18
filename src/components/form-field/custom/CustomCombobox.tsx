@@ -20,14 +20,14 @@ type ComboboxType = {
   editData?: any;
 };
 
-export function ComboboxDemo({ handleValueChange, editMode, editData }: ComboboxType) {
+export function CustomCombobox({ handleValueChange, editMode, editData }: ComboboxType) {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<UserDataType | undefined>();
 
-  const handleSetActive = React.useCallback((product: UserDataType) => {
-    console.log(product);
-    setSelected(product);
-    handleValueChange?.(product);
+  const handleSetActive = React.useCallback((data: UserDataType) => {
+    console.log(data);
+    setSelected(data);
+    handleValueChange?.(data);
 
     // OPTIONAL: close the combobox upon selection
     setOpen(false);
