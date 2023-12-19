@@ -10,7 +10,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   if (!session) {
     redirect(LOGIN_PAGE);
   }
-
   return (
     <div className="relative flex">
       <Header />

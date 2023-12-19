@@ -4,39 +4,25 @@ import React from "react";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 import { QueryClientProvider, QueryClient, QueryCache } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { signOut } from "next-auth/react";
+
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    },
+    mutations: {
+      // throwOnError: true,
+    },
+  },
+  queryCache: new QueryCache({
+    onError: (e) => {
+      console.error(e);
+    },
+  }),
+});
 
 function TanstackProvider({ children }: any) {
-  const client = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        staleTime: Infinity,
-      },
-      mutations: {
-        onError: (e: any) => {
-          if (e.response) {
-            const errors = e.response.errors;
-            if (errors[0] && errors[0].code === "UNAUTHENTICATED" && errors[0]?.statusCode === 401) {
-              // handle unauthenticated errors
-              signOut({ callbackUrl: "/auth/login" });
-            }
-          }
-        },
-      },
-    },
-    queryCache: new QueryCache({
-      onError: (e: any) => {
-        if (e.response) {
-          const errors = e.response.errors;
-          if (errors[0] && errors[0].code === "UNAUTHENTICATED" && errors[0]?.statusCode === 401) {
-            signOut({ callbackUrl: "/auth/login" });
-          }
-        }
-      },
-    }),
-  });
-
   return (
     <QueryClientProvider client={client}>
       <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>

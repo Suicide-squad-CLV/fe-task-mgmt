@@ -1,14 +1,10 @@
-"use client";
-
+import { Button } from "@/components/ui/button";
+import { PlusSmallIcon } from "@heroicons/react/24/outline";
 import TaskContainer from "@/components/task-board/TaskContainer";
 import SideBar from "@/components/layout/SideBar";
 import FunctionToolBar from "@/components/layout/FunctionToolBar";
-import { useIsFetching } from "@tanstack/react-query";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function TaskManagementPage() {
-  const isFetching = useIsFetching();
-
   return (
     <div className="ml-[261px] flex w-full dark:bg-[#20212c] ">
       {/* Sidebar */}
@@ -17,28 +13,11 @@ export default function TaskManagementPage() {
           <SideBar />
         </div>
       </div>
-
       <div className="mx-16 mt-28 max-h-[calc(100%-10rem)] flex-1">
-        {isFetching ? (
-          <>
-            <Skeleton className="mt-5 h-[60px] w-full rounded-lg">
-              <div className="flex h-full w-full items-center justify-center text-xl italic">Loading</div>
-            </Skeleton>
-            <Skeleton className="mt-5 h-[60px] w-full rounded-lg">
-              <div className="flex h-full w-full items-center justify-center text-xl italic">Loading</div>
-            </Skeleton>
-            <Skeleton className="mt-5 h-[60px] w-full rounded-lg">
-              <div className="flex h-full w-full items-center justify-center text-xl italic">Loading</div>
-            </Skeleton>
-          </>
-        ) : (
-          <>
-            {/* Functional */}
-            <FunctionToolBar />
-            {/* Task board */}
-            <TaskContainer />
-          </>
-        )}
+        {/* Functional */}
+        <FunctionToolBar />
+        {/* Task board */}
+        <TaskContainer />
       </div>
     </div>
   );
