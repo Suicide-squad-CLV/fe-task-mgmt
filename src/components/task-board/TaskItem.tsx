@@ -23,6 +23,7 @@ const TaskItem = ({ task }: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
   const setDraggedTask = useGeneralStore((store) => store.setDraggedTask);
+  const imageSrc = task.assignUser?.avatar;
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -51,9 +52,6 @@ const TaskItem = ({ task }: Props) => {
       },
     });
   };
-
-  const imageSrc = task.assignUser?.avatar;
-  console.log(imageSrc);
 
   return (
     <>
