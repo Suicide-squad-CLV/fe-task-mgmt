@@ -19,26 +19,12 @@ export default function TaskManagementPage() {
       </div>
 
       <div className="mx-16 mt-28 max-h-[calc(100%-10rem)] flex-1">
-        {isFetching ? (
-          <>
-            <Skeleton className="mt-5 h-[60px] w-full rounded-lg">
-              <div className="flex h-full w-full items-center justify-center text-xl italic">Loading</div>
-            </Skeleton>
-            <Skeleton className="mt-5 h-[60px] w-full rounded-lg">
-              <div className="flex h-full w-full items-center justify-center text-xl italic">Loading</div>
-            </Skeleton>
-            <Skeleton className="mt-5 h-[60px] w-full rounded-lg">
-              <div className="flex h-full w-full items-center justify-center text-xl italic">Loading</div>
-            </Skeleton>
-          </>
-        ) : (
-          <>
-            {/* Functional */}
-            <FunctionToolBar />
-            {/* Task board */}
-            <TaskContainer />
-          </>
-        )}
+        <>
+          {/* Functional */}
+          <FunctionToolBar />
+          {/* Task board */}
+          <TaskContainer />
+        </>
       </div>
     </div>
   );
