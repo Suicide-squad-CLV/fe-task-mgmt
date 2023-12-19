@@ -6,13 +6,14 @@ import { useGQLQuery } from "@/utils/hooks/useGQLQuery";
 import { QUERY_ALL_STATUS } from "@/utils/common/constants";
 import { GET_ALL_STATUS } from "@/graphql/queries/getAllStatus";
 import { GetAllStatusQuery } from "@/gql/graphql";
-import ModifyTaskPopup from "../popup/ModifyTaskPopup";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {};
 
 const TaskContainer = (props: Props) => {
   const [statusPanels, setStatusPanels] = useState<StatusInfo[]>([]);
-  const { data }: any = useGQLQuery(QUERY_ALL_STATUS, GET_ALL_STATUS, {});
+  const { data, isLoading } = useGQLQuery(QUERY_ALL_STATUS, GET_ALL_STATUS, {});
+
   useEffect(() => {
     if (data) {
       const { statusList } = data as GetAllStatusQuery;
@@ -22,9 +23,15 @@ const TaskContainer = (props: Props) => {
 
   return (
     <div className="grid h-full w-full grid-cols-4 grid-rows-1 gap-6">
-      {statusPanels.map((status) => (
-        <TaskPanel key={status.id} status={status} />
-      ))}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {statusPanels.map((status) => (
+            <TaskPanel key={status.id} status={status} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
