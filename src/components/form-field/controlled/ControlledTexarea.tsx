@@ -15,11 +15,11 @@ const ControlledTextarea = ({ control, name, messageClassName, ...props }: Contr
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem data-cy={`form-item-${name}`}>
           <FormControl>
             <CustomTextarea {...field} {...props} />
           </FormControl>
-          <FormMessage className={messageClassName} />
+          <FormMessage data-cy="error-message" className={messageClassName} />
         </FormItem>
       )}
     />

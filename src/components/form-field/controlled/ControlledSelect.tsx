@@ -27,7 +27,7 @@ export function ControlledSelect({ control, name, defaultValue, dataList, label,
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem {...props}>
+        <FormItem data-cy={`form-item-${name}`} {...props}>
           {label && <Label>{label}</Label>}
           <Select
             onValueChange={(value) => {
@@ -37,19 +37,19 @@ export function ControlledSelect({ control, name, defaultValue, dataList, label,
             value={selectValue || defaultValue}
           >
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger data-cy="select-input">
                 <SelectValue data-cy="select-value" placeholder={dataList[0]?.label} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent>
+            <SelectContent data-cy="list-option">
               {dataList.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
+                <SelectItem data-cy={`option-${item.value}`} key={item.value} value={item.value}>
                   {item.label}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          <FormMessage />
+          <FormMessage data-cy="error-message" />
         </FormItem>
       )}
     />

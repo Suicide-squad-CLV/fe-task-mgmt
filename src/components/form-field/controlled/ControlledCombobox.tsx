@@ -50,7 +50,7 @@ export function ControlledCombobox({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex w-full flex-col">
+        <FormItem data-cy={`form-item-${name}`} className="flex w-full flex-col">
           {label && <Label>{label}</Label>}
           <CustomCombobox
             editMode={editMode}
@@ -59,7 +59,7 @@ export function ControlledCombobox({
             CustomOptionsItem={CustomOptionsItem}
             {...props}
           />
-          <FormMessage />
+          <FormMessage data-cy="error-message" />
         </FormItem>
       )}
     />

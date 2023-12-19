@@ -92,7 +92,7 @@ const LoginForm = (props: Props) => {
         <Link href={RESET_PASSWORD_PAGE} className="-my-3 ml-auto text-sm font-medium text-blue-600">
           Forgot Password?
         </Link>
-        <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700" type="submit">
+        <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700" type="submit" data-cy="login-btn">
           Sign In
         </Button>
       </form>

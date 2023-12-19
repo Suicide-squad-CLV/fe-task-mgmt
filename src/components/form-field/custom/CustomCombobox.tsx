@@ -12,7 +12,7 @@ import { optionDataType } from "../controlled/ControlledSelect";
 import { Search } from "./search";
 import { UserDataType } from "@/types/user.types";
 
-const POPOVER_WIDTH = "w-full min-w-[300px]";
+const POPOVER_WIDTH = "min-w-[300px]";
 
 type ComboboxType = {
   handleValueChange?: (user: UserDataType) => void;
@@ -26,7 +26,6 @@ export function CustomCombobox({ handleValueChange, editMode, editData, CustomOp
   const [selected, setSelected] = React.useState<UserDataType | undefined>();
 
   const handleSetActive = React.useCallback((data: UserDataType) => {
-    console.log(data);
     setSelected(data);
     handleValueChange?.(data);
 

@@ -14,7 +14,11 @@ const FunctionToolBar = (props: Props) => {
       <div className="mb-8 flex h-12 items-center justify-between">
         <p className="text-3xl font-medium text-neutral-700">Tasks</p>
         <div className="relative flex items-center gap-4">
-          <Button className="bg-blue-600 px-4 py-2 hover:bg-blue-700" onClick={() => setIsShow(true)}>
+          <Button
+            data-cy="add-task-btn"
+            className="bg-blue-600 px-4 py-2 hover:bg-blue-700"
+            onClick={() => setIsShow(true)}
+          >
             <PlusSmallIcon className="h-6 w-6" /> New Task
           </Button>
           <ModifyTaskPopup isShow={isShow} handleCloseDialog={() => setIsShow(false)} />

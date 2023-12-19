@@ -15,11 +15,11 @@ const ControlledInput = ({ control, name, messageClassName, ...props }: Props) =
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem data-cy={`form-item-${name}`}>
           <FormControl>
             <CustomInput {...field} {...props} />
           </FormControl>
-          <FormMessage className={messageClassName} />
+          <FormMessage data-cy="error-message" className={messageClassName} />
         </FormItem>
       )}
     />

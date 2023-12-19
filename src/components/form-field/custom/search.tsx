@@ -87,6 +87,7 @@ function SearchResults({ query, selectedResult, onSelectResult, CustomOptionsIte
             key={id}
             onSelect={() => onSelectResult({ id, fullname })}
             value={id}
+            data-cy="combobox-item"
           >
             <Check className={cn("mr-2 h-4 w-4", selectedResult?.id === id ? "opacity-100" : "opacity-0")} />
             {/* {fullname} */}
