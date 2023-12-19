@@ -21,7 +21,7 @@ const TaskContainer = (props: Props) => {
   }, [data]);
 
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid h-full w-full grid-cols-4 grid-rows-1 gap-6">
       {statusPanels.map((status) => (
         <TaskPanel key={status.id} status={status} />
       ))}

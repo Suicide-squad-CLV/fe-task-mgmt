@@ -69,7 +69,8 @@ const TaskPanel = ({ status }: Props) => {
 
   return (
     <div
-      className={`min-h-[720px] rounded-xl p-3 ${drop ? "!bg-slate-300" : ""}`}
+      data-cy={`${status.id}`}
+      className={`h-full rounded-xl p-3 pb-0 ${drop ? "!bg-slate-300" : ""}`}
       style={{ backgroundColor: `${!drop ? status.backgroundColor : ""}` }}
       onDragOver={(e) => {
         setDrop(true);
@@ -86,7 +87,7 @@ const TaskPanel = ({ status }: Props) => {
         <span className="text-xl font-medium">{status.statusName}</span>
       </div>
       {/* task list */}
-      <div className="h-[680px] max-h-[680px] min-h-[680px] overflow-auto">
+      <div className="h-[calc(100%-40px)] overflow-auto">
         {taskList.map((item) => (
           <TaskItem key={item.id} task={item} />
         ))}
