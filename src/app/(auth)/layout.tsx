@@ -10,6 +10,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
   if (session) {
     redirect(TASK_MANAGEMENT_PAGE);
   }
+
   return (
     <div className="flex h-screen w-full">
       <div className="m-auto flex w-2/3 items-center justify-center gap-9 rounded-xl bg-white p-16 shadow-lg">
