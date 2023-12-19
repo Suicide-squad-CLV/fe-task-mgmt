@@ -55,13 +55,27 @@ const TaskItem = ({ task }: Props) => {
 
   return (
     <>
-      <Card className="my-2 cursor-grab p-3" draggable onDragStart={() => setDraggedTask(task)}>
-        <div className="flex flex-col gap-3 break-words">
-          <p className="text-lg font-medium">{task.taskTitle}</p>
-          <p className="w-full text-base">{task.taskDescription}</p>
+      <Card
+        data-cy={`task-item-${task.id}`}
+        className="my-2 mr-2 cursor-grab p-3"
+        draggable
+        onDragStart={() => setDraggedTask(task)}
+      >
+        <div className="flex flex-col gap-2 break-words">
+          <p className=" w-full overflow-hidden pb-1 text-lg font-semibold">
+            <span data-cy="task-title" className="line-clamp-2">
+              {task.taskTitle}
+            </span>
+          </p>
+          <p className="w-full overflow-hidden pb-1 text-base">
+            <span data-cy="task-desc" className="line-clamp-3">
+              {task.taskDescription}
+            </span>
+          </p>
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span
+                data-cy="edit-btn"
                 className="cursor-pointer p-2 hover:text-blue-500"
                 onClick={() => {
                   setShowPopup(true);
@@ -71,6 +85,7 @@ const TaskItem = ({ task }: Props) => {
               </span>
               {task.status?.id !== ARCHIVED_TASK_ID && (
                 <span
+                  data-cy="delete-btn"
                   className="cursor-pointer p-2 hover:text-blue-500"
                   onClick={() => {
                     setShowConfirmation(true);
