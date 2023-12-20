@@ -11,6 +11,7 @@ import { UPDATE_TASK } from "@/graphql/mutations/updateTask";
 import { ARCHIVED_TASK_ID, QUERY_ALL_TASKS } from "@/utils/common/constants";
 import { toast } from "react-toastify";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { catchHandle } from "@/utils/common/catchHandle";
 
 type Props = {
   task: TaskInfo;
@@ -49,6 +50,7 @@ const TaskItem = ({ task }: Props) => {
       },
       onError: (err) => {
         console.log(err);
+        catchHandle(err);
       },
     });
   };
