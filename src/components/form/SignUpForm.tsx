@@ -14,6 +14,8 @@ import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { LOGIN_PAGE } from "@/config/route/page-routes";
+import { catchHandle } from "@/utils/common/catchHandle";
+import { ApiReponse } from "@/utils/type/response";
 
 type Props = {};
 
@@ -55,6 +57,10 @@ const SignUpForm = (props: Props) => {
           toast.success("Register successful");
           router.push(LOGIN_PAGE);
         }
+      },
+      onError: (err) => {
+        catchHandle(err);
+        form.setFocus("email");
       },
     });
   }

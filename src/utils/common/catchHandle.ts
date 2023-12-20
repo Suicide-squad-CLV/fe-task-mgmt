@@ -8,12 +8,12 @@ export const catchHandle = (e: any): void => {
     if (response.errors.length > 0) {
       const message = response.errors[0].message;
       if (response.errors[0].statusCode === 401) {
-        toast.warning("Login session expired");
+        toast.error("Login session expired");
       } else {
-        toast.warning(message);
+        toast.error(message);
       }
     }
   } catch {
-    toast.warning("Something went wrong");
+    toast.error("Something went wrong");
   }
 };

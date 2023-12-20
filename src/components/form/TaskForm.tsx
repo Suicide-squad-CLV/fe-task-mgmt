@@ -35,7 +35,7 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
   const addTask = useGQLMutation(ADD_TASK);
   const updateTask = useGQLMutation(UPDATE_TASK);
   const [statusList, setStatusList] = useState<any[]>([]);
-
+  const defaultAvtUrl = "/image/user-icon.png";
   const allStatus: any = useGQLQuery(QUERY_ALL_STATUS, GET_ALL_STATUS, {});
 
   const convertToStatusList = (data: any[]) => {
@@ -123,14 +123,15 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
 
   const CustomOptions = useCallback(({ avtUrl, fullname, email, key }: any) => {
     return (
-      <div className="flex items-center gap-3" key={key}>
+      <div className="my-1 flex min-h-[14px] w-fit cursor-pointer items-center gap-3" key={key}>
         <Avatar className="m-auto h-6 w-6">
-          <AvatarImage src={avtUrl} />
+          <AvatarImage src={avtUrl || defaultAvtUrl} />
           <AvatarFallback></AvatarFallback>
         </Avatar>
-        <span>
-          {fullname} <span>{email}</span>
-        </span>
+        <div>
+          <span className="block text-sm">{fullname}</span>
+          <span className="text-xs text-gray-500">{`(${email})`}</span>
+        </div>
       </div>
     );
   }, []);

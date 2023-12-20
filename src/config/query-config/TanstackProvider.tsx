@@ -5,6 +5,7 @@ import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experime
 import { QueryClientProvider, QueryClient, QueryCache } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { signOut } from "next-auth/react";
+import { toast } from "react-toastify";
 
 function TanstackProvider({ children }: any) {
   const client = new QueryClient({
@@ -19,6 +20,7 @@ function TanstackProvider({ children }: any) {
             const errors = e.response.errors;
             if (errors[0] && errors[0].code === "UNAUTHENTICATED" && errors[0]?.statusCode === 401) {
               // handle unauthenticated errors
+              toast.error("Your session has expired!");
               signOut({ callbackUrl: "/auth/login" });
             }
           }
@@ -30,6 +32,7 @@ function TanstackProvider({ children }: any) {
         if (e.response) {
           const errors = e.response.errors;
           if (errors[0] && errors[0].code === "UNAUTHENTICATED" && errors[0]?.statusCode === 401) {
+            toast.error("Your session has expired!");
             signOut({ callbackUrl: "/auth/login" });
           }
         }

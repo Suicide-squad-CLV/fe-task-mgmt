@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { optionDataType } from "../controlled/ControlledSelect";
-import { Search } from "./search";
+
 import { UserDataType } from "@/types/user.types";
+import { ComboSearchResults } from "./ComboSearchResults";
 
 const POPOVER_WIDTH = "min-w-[300px]";
 
@@ -58,7 +59,11 @@ export function CustomCombobox({ handleValueChange, editMode, editData, CustomOp
       </PopoverTrigger>
 
       <PopoverContent side="bottom" className={cn("p-0", POPOVER_WIDTH)}>
-        <Search selectedResult={selected} onSelectResult={handleSetActive} CustomOptionsItem={CustomOptionsItem} />
+        <ComboSearchResults
+          selectedResult={selected}
+          onSelectResult={handleSetActive}
+          CustomOptionsItem={CustomOptionsItem}
+        />
       </PopoverContent>
     </Popover>
   );
