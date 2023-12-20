@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 
 import { UPDATE_TASK } from "@/graphql/mutations/updateTask";
 import { useQueryClient } from "@tanstack/react-query";
+import { catchHandle } from "@/utils/common/catchHandle";
 
 type Props = {
   onEdit?: boolean;
@@ -63,7 +64,7 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
       form.reset({
         title: taskData?.taskTitle ? taskData?.taskTitle : "",
         description: taskData?.taskDescription ? taskData?.taskDescription : "",
-        assignee: taskData?.assignUser ? taskData?.assignUser.id : "",
+        assignee: taskData?.assignUser?.id ? taskData?.assignUser?.id : "",
         status: taskData?.status?.id ? taskData.status?.id : statusList[0]?.value,
       });
     }
@@ -99,6 +100,9 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
           toast.success("New task was added!");
           queryClient.invalidateQueries({ queryKey: [...QUERY_ALL_TASKS] });
         },
+        onError: (err) => {
+          catchHandle(err);
+        },
       });
     } else {
       const payload = {
@@ -115,7 +119,7 @@ const TaskForm = ({ onEdit, handleCloseDialog, taskData }: Props) => {
           queryClient.invalidateQueries({ queryKey: [...QUERY_ALL_TASKS] });
         },
         onError: (err) => {
-          console.log(err);
+          catchHandle(err);
         },
       });
     }
