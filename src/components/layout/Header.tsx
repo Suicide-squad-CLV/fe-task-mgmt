@@ -8,7 +8,7 @@ import Logo from "@/assets/icons/logo";
 import SearchBar from "../task-board/SearchBar";
 
 const Header = () => {
-  const imageUrl = "https://github.com/shadcn.png";
+  const imageUrl = "/image/user-icon.png";
   const { data } = useSession();
 
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -22,7 +22,7 @@ const Header = () => {
         <header className="flex items-center justify-center">
           <div className="mt-7 flex min-w-[260px] cursor-pointer items-center justify-center gap-2">
             <Logo />
-            <span className="text-xl font-medium">TaskBan</span>
+            <span className="text-3xl font-semibold text-blue-600">TaskBan</span>
           </div>
           <div className="flex flex-1 flex-wrap items-center gap-20 border-b border-l border-solid">
             <SearchBar />
@@ -47,7 +47,7 @@ const Header = () => {
       {showPopup && (
         <UploadAvatarPopup
           isShow={showPopup}
-          currentAvatar={data?.user?.avatar ?? ""}
+          currentAvatar={data?.user?.avatar ?? imageUrl}
           handleCloseDialog={handleCloseDialog}
         />
       )}

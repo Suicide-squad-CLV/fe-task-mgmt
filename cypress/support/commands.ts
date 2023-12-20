@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+
+import { UserDataType } from "@/types/user.types";
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -35,3 +38,17 @@
 //     }
 //   }
 // }
+Cypress.Commands.add("loginViaUser", (user: any) => {
+  cy.visit("/auth/login");
+  cy.get("#email").type(user.email);
+  cy.get("#password").type(user.password);
+  cy.get("[data-cy=login-btn]").click();
+});
+
+// Cypress.Commands.add("registerViaUser", (user) => {
+//   cy.visit("/auth/register");
+//   cy.get("[data-cy=email]").type(user.email);
+//   cy.get("[data-cy=password]").type(user.password);
+//   cy.get("[data-cy=confirm]").type(user.password);
+//   cy.get("[data-cy=register-btn]").click();
+// });

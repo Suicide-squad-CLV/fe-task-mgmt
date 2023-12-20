@@ -87,7 +87,7 @@ const TaskPanel = ({ status }: Props) => {
         <span className="text-xl font-medium">{status.statusName}</span>
       </div>
       {/* task list */}
-      <div className="h-[calc(100%-40px)] overflow-auto">
+      <div className="h-[calc(100%-40px)] overflow-y-auto">
         {taskList.map((item) => (
           <TaskItem key={item.id} task={item} />
         ))}

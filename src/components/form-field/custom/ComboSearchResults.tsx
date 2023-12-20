@@ -16,7 +16,7 @@ interface SearchProps {
   CustomOptionsItem?: React.ComponentType<any>;
 }
 
-export function Search({ selectedResult, onSelectResult, CustomOptionsItem }: SearchProps) {
+export function ComboSearchResults({ selectedResult, onSelectResult, CustomOptionsItem }: SearchProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSelectResult = (user: UserDataType) => {
