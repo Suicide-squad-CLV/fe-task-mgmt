@@ -6,9 +6,9 @@ import UploadAvatarPopup from "../popup/UploadAvatarPopup";
 import { useSession } from "next-auth/react";
 import Logo from "@/assets/icons/logo";
 import SearchBar from "../task-board/SearchBar";
+import { DEFAULT_USER_IMAGE } from "@/utils/common/constants";
 
 const Header = () => {
-  const imageUrl = "/image/user-icon.png";
   const { data } = useSession();
 
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const Header = () => {
             <SearchBar />
             <div className="group relative mr-10 h-11 w-11 cursor-pointer rounded-full bg-gray-300">
               <Avatar className="m-auto h-full w-full" onClick={() => setShowPopup(true)}>
-                <AvatarImage src={data?.user?.avatar ?? imageUrl} />
+                <AvatarImage src={data?.user?.avatar ?? DEFAULT_USER_IMAGE} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
               <div
@@ -47,7 +47,7 @@ const Header = () => {
       {showPopup && (
         <UploadAvatarPopup
           isShow={showPopup}
-          currentAvatar={data?.user?.avatar ?? imageUrl}
+          currentAvatar={data?.user?.avatar ?? DEFAULT_USER_IMAGE}
           handleCloseDialog={handleCloseDialog}
         />
       )}

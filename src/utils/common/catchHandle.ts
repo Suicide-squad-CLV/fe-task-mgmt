@@ -1,5 +1,5 @@
+import { ApiReponse } from "@/types/response";
 import { toast } from "react-toastify";
-import { ApiReponse } from "../type/response";
 
 export const catchHandle = (e: any): void => {
   const response: ApiReponse = e?.response;

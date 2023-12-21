@@ -9,6 +9,8 @@ export const GET_ALL_TASKS = gql`
       status {
         id
         statusName
+        backgroundColor
+        textColor
       }
       assignUser {
         id
