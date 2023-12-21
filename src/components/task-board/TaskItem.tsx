@@ -15,10 +15,12 @@ import { catchHandle } from "@/utils/common/catchHandle";
 import TaskDetailPopup from "../popup/TaskDetailPopup";
 
 type Props = {
-  task: TaskInfo;
+  task: any;
 };
 
 const TaskItem = ({ task }: Props) => {
+  console.log(task);
+
   const queryClient = useQueryClient();
   const updateTask = useGQLMutation(UPDATE_TASK);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
@@ -92,7 +94,7 @@ const TaskItem = ({ task }: Props) => {
               >
                 <PencilIcon className="h-5 w-5" />
               </span>
-              {task.status?.id !== ARCHIVED_TASK_ID && (
+              {!task.status?.persisted && (
                 <span
                   data-cy="delete-btn"
                   className="cursor-pointer p-2 hover:text-blue-500"
