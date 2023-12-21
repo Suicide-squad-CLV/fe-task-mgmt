@@ -8,10 +8,11 @@ import ModifyTaskPopup from "../popup/ModifyTaskPopup";
 import ConfirmationPopup from "../popup/ConfirmationPopup";
 import { useGQLMutation } from "@/utils/hooks/useGQLMutation";
 import { UPDATE_TASK } from "@/graphql/mutations/updateTask";
-import { ARCHIVED_TASK_ID, QUERY_ALL_TASKS } from "@/utils/common/constants";
+import { ARCHIVED_TASK_ID, DEFAULT_USER_IMAGE, QUERY_ALL_TASKS } from "@/utils/common/constants";
 import { toast } from "react-toastify";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { catchHandle } from "@/utils/common/catchHandle";
+import TaskDetailPopup from "../popup/TaskDetailPopup";
 
 type Props = {
   task: TaskInfo;
@@ -23,6 +24,7 @@ const TaskItem = ({ task }: Props) => {
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [showPopupDetail, setShowPopupDetail] = useState<boolean>(false);
   const setDraggedTask = useGeneralStore((store) => store.setDraggedTask);
   const imageSrc = task.assignUser?.avatar;
 
@@ -64,7 +66,12 @@ const TaskItem = ({ task }: Props) => {
         onDragStart={() => setDraggedTask(task)}
       >
         <div className="flex flex-col gap-2 break-words">
-          <p className=" w-full overflow-hidden pb-1 text-lg font-semibold">
+          <p
+            className=" w-full cursor-pointer overflow-hidden pb-1 text-lg font-semibold hover:text-blue-500"
+            onClick={() => {
+              setShowPopupDetail(true);
+            }}
+          >
             <span data-cy="task-title" className="line-clamp-2">
               {task.taskTitle}
             </span>
@@ -104,7 +111,7 @@ const TaskItem = ({ task }: Props) => {
                 onMouseLeave={() => setShowTooltip(false)}
               >
                 <Avatar className="flex h-8 w-8 rounded-full border">
-                  {imageSrc ? <AvatarImage src={imageSrc} /> : <AvatarImage src="/image/user-icon.png" />}
+                  {imageSrc ? <AvatarImage src={imageSrc} /> : <AvatarImage src={DEFAULT_USER_IMAGE} />}
                 </Avatar>
               </div>
             )}
@@ -117,6 +124,7 @@ const TaskItem = ({ task }: Props) => {
           </div>
         </div>
       </Card>
+      <TaskDetailPopup isShow={showPopupDetail} handleCloseDialog={() => setShowPopupDetail(false)} taskData={task} />
       <ModifyTaskPopup isShow={showPopup} handleCloseDialog={handleClosePopup} editMode taskData={task || {}} />
       <ConfirmationPopup
         isShow={showConfirmation}

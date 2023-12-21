@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { LOGIN_PAGE } from "@/config/route/page-routes";
 import { catchHandle } from "@/utils/common/catchHandle";
-import { ApiReponse } from "@/utils/type/response";
 
 type Props = {};
 
