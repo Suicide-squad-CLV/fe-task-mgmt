@@ -42,7 +42,7 @@ const TaskItem = ({ task }: Props) => {
     const payload = {
       updateTaskId: task.id,
       updatedTaskData: {
-        deleteFlag: "Y",
+        deleteFlag: true,
       },
     };
 
