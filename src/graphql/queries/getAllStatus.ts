@@ -7,6 +7,7 @@ export const GET_ALL_STATUS = gql`
       statusName
       backgroundColor
       textColor
+      persisted
     }
   }
 `;
